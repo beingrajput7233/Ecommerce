@@ -3,7 +3,8 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session');
-
+const dotenv=require('dotenv')
+dotenv.config({path:'../config.env'})
 const app = express.Router();
 
 // Configure cookie-parser and cookie-session middleware
@@ -24,11 +25,8 @@ app.use(passport.session());
 passport.use(
   new GoogleStrategy(
     {
-    //   clientID: 'your-client-id', // Replace with your Google OAuth client ID
-    //   clientSecret: 'your-client-secret', // Replace with your Google OAuth client secret
-    //   callbackURL: 'http://localhost:3000/auth/google/callback', // Replace with your callback URL
-        clientID:"651899149145-a4ohevqol2078kuids4oldvddfvf4t2q.apps.googleusercontent.com",
-        clientSecret:"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",
+        clientID:process.env.GOOGLE_CLIENT_ID,
+        clientSecret:process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: "http://localhost:5000/google/callback",
         passReqToCallback   : true
     },
